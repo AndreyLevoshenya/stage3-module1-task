@@ -1,0 +1,10 @@
+NERROR_CODE: 000002 ERROR_MESSAGE: Author Id does not exist. Author Id is: 12
+BERROR_CODE: 000001 ERROR_MESSAGE: News with id 41 does not exist
+ŠERROR_CODE: 000004 ERROR_MESSAGE: Content length is wrong. Content field should have length of value from 5 to 255. News content is newC
+MERROR_CODE: 000002 ERROR_MESSAGE: Author Id does not exist. Author Id is: 4
+	AERROR_CODE: 000001 ERROR_MESSAGE: News with id 7 does not exist
+
+‚ERROR_CODE: 000003 ERROR_MESSAGE: Title length is wrong. Title field should have length of value from 5 to 30. News title is tit
+BERROR_CODE: 000001 ERROR_MESSAGE: News with id 10 does not exist
+ƒERROR_CODE: 000003 ERROR_MESSAGE: Title length is wrong. Title field should have length of value from 5 to 30. News title is newT
+ŠERROR_CODE: 000004 ERROR_MESSAGE: Content length is wrong. Content field should have length of value from 5 to 255. News content is cont
