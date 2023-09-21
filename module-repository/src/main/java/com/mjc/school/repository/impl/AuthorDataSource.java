@@ -15,6 +15,7 @@ public class AuthorDataSource implements DataSource<Author> {
     public AuthorDataSource(String filename) {
         this.filename = filename;
     }
+
     @Override
     public List<Author> getInfo() {
         List<Author> data = new ArrayList<>();

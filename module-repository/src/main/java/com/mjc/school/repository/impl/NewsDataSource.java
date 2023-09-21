@@ -16,6 +16,7 @@ public class NewsDataSource implements DataSource<News> {
     public NewsDataSource(String filename) {
         this.filename = filename;
     }
+
     @Override
     public List<News> getInfo() {
         List<News> data = new ArrayList<>();

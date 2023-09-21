@@ -6,7 +6,7 @@ public class IdGenerator {
     private Long newsId;
 
     public IdGenerator(DataRepository dataSource) {
-        newsId = (long) dataSource.getAllNews().size();
+        newsId = (long) dataSource.readAllNews().size();
     }
 
     public Long getNewsId() {

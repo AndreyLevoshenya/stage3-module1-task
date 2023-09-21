@@ -1,10 +1,11 @@
 package com.mjc.school.service;
 
 import com.mjc.school.repository.DataRepository;
-import com.mjc.school.repository.FileDataRepository;
+import com.mjc.school.repository.impl.FileDataRepository;
 import com.mjc.school.repository.models.Author;
 import com.mjc.school.repository.models.News;
 import com.mjc.school.repository.exceptions.NewsNotFoundException;
+import com.mjc.school.service.impl.NewsServiceImpl;
 import com.mjc.school.service.validators.NewsValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class NewsServiceImplTest {
 
     @Test
     void canGetAllNews() {
-        List<NewsDtoResponse> expected = dataRepository.getAllNews().stream().map(newsDtoMapper::convertToDto).collect(Collectors.toList());
+        List<NewsDtoResponse> expected = dataRepository.readAllNews().stream().map(newsDtoMapper::convertToDto).collect(Collectors.toList());
 
         List<NewsDtoResponse> actual = newsService.getAllNews();
 
@@ -83,7 +84,7 @@ class NewsServiceImplTest {
         NewsDtoResponse actual = newsService.createNews(newsDtoResponse);
 
         assertNotNull(actual);
-        assertEquals(6, dataRepository.getAllNews().size());
+        assertEquals(6, dataRepository.readAllNews().size());
     }
 
     @Test
@@ -92,7 +93,7 @@ class NewsServiceImplTest {
         NewsDtoResponse actual = newsService.createNews(newsDtoResponse);
 
         assertNull(actual);
-        assertEquals(5, dataRepository.getAllNews().size());
+        assertEquals(5, dataRepository.readAllNews().size());
     }
 
     @Test
@@ -101,7 +102,7 @@ class NewsServiceImplTest {
         NewsDtoResponse actual = newsService.createNews(newsDtoResponse);
 
         assertNull(actual);
-        assertEquals(5, dataRepository.getAllNews().size());
+        assertEquals(5, dataRepository.readAllNews().size());
     }
 
     @Test
@@ -110,7 +111,7 @@ class NewsServiceImplTest {
         NewsDtoResponse actual = newsService.createNews(newsDtoResponse);
 
         assertNull(actual);
-        assertEquals(5, dataRepository.getAllNews().size());
+        assertEquals(5, dataRepository.readAllNews().size());
     }
 
     @Test
@@ -120,7 +121,7 @@ class NewsServiceImplTest {
         NewsDtoResponse actual = newsService.updateNews(id, newsDtoResponse);
 
         assertNotNull(actual);
-        assertEquals(newsDtoMapper.convertToDto(dataRepository.getNewsById(id)).toString(), actual.toString());
+        assertEquals(newsDtoMapper.convertToDto(dataRepository.readById(id)).toString(), actual.toString());
     }
 
     @Test
@@ -136,11 +137,11 @@ class NewsServiceImplTest {
     @Test
     void updateNewsWithInvalidTitle() throws NewsNotFoundException {
         Long id = 4L;
-        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
         NewsDtoResponse newsDtoResponse = new NewsDtoResponse("newT", "newContent4", 3L);
 
         NewsDtoResponse actual = newsService.updateNews(id, newsDtoResponse);
-        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
 
         assertNull(actual);
         assertEquals(newsBeforeUpdate.toString(), newsAfterUpdate.toString());
@@ -149,11 +150,11 @@ class NewsServiceImplTest {
     @Test
     void updateNewsWithInvalidContent() throws NewsNotFoundException {
         Long id = 4L;
-        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
         NewsDtoResponse newsDtoResponse = new NewsDtoResponse("newTitle4", "newC", 3L);
 
         NewsDtoResponse actual = newsService.updateNews(id, newsDtoResponse);
-        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
 
         assertNull(actual);
         assertEquals(newsBeforeUpdate.toString(), newsAfterUpdate.toString());
@@ -162,11 +163,11 @@ class NewsServiceImplTest {
     @Test
     void updateNewsWithInvalidAuthorId() throws NewsNotFoundException {
         Long id = 4L;
-        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsBeforeUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
         NewsDtoResponse newsDtoResponse = new NewsDtoResponse("newTitle4", "newContent4", 12L);
 
         NewsDtoResponse actual = newsService.updateNews(id, newsDtoResponse);
-        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.getNewsById(id));
+        NewsDtoResponse newsAfterUpdate = newsDtoMapper.convertToDto(dataRepository.readById(id));
 
         assertNull(actual);
         assertEquals(newsBeforeUpdate.toString(), newsAfterUpdate.toString());
@@ -178,7 +179,7 @@ class NewsServiceImplTest {
         boolean actual = newsService.deleteNews(id);
 
         assertTrue(actual);
-        assertEquals(4, dataRepository.getAllNews().size());
+        assertEquals(4, dataRepository.readAllNews().size());
     }
 
     @Test
@@ -187,6 +188,6 @@ class NewsServiceImplTest {
         boolean actual = newsService.deleteNews(id);
 
         assertFalse(actual);
-        assertEquals(5, dataRepository.getAllNews().size());
+        assertEquals(5, dataRepository.readAllNews().size());
     }
 }

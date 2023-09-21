@@ -23,14 +23,17 @@ public class FileDataRepository implements DataRepository {
         this.authorsData = authorsData;
     }
 
+    @Override
     public List<News> readAllNews(){
         return newsData;
     }
 
+    @Override
     public List<Author> readAllAuthors() {
         return authorsData;
     }
 
+    @Override
     public News readById(Long id) throws NewsNotFoundException {
         Optional<News> value = newsData.stream().filter(news -> news.getId().equals(id)).findAny();
         if (value.isEmpty()) {
@@ -39,11 +42,13 @@ public class FileDataRepository implements DataRepository {
         return value.get();
     }
 
+    @Override
     public News createNews(News news) {
         newsData.add(news);
         return news;
     }
 
+    @Override
     public News updateNews(News newNews) throws NewsNotFoundException {
         int index = Collections.binarySearch(newsData, new News(newNews.getId(), "", "", null, null, null));
         if(index >= 0) {
@@ -55,6 +60,7 @@ public class FileDataRepository implements DataRepository {
         }
     }
 
+    @Override
     public boolean deleteNewsById(Long id) throws NewsNotFoundException {
         int index = Collections.binarySearch(newsData, new News(id, "", "", null, null, null));
         if(index >= 0) {
@@ -65,6 +71,5 @@ public class FileDataRepository implements DataRepository {
             throw new NewsNotFoundException("News with id " + id + " does not exist");
         }
     }
-
 
 }
