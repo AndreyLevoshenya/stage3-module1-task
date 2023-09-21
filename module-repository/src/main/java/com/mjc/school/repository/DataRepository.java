@@ -7,11 +7,11 @@ import com.mjc.school.repository.exceptions.NewsNotFoundException;
 import java.util.List;
 
 public interface DataRepository {
-    List<News> getAllNews();
+    List<News> readAllNews();
 
-    List<Author> getAllAuthors();
+    List<Author> readAllAuthors();
 
-    News getNewsById(Long id) throws NewsNotFoundException;
+    News readById(Long id) throws NewsNotFoundException;
 
     News createNews(News news);
 

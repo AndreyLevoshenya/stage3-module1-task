@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mjc.school.repository"},{"l":"com.mjc.school.repository.exceptions"},{"l":"com.mjc.school.repository.models"}];updateSearchResults();
